@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Catalog</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="antialiased bg-background text-foreground font-body">
+  <div class="container mx-auto px-4 py-8">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold mb-4">Book Catalog</h1>
+      <div class="flex items-center justify-between">
+        <div class="relative w-full max-w-md">
+          <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+          <input class="flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-10 w-full" type="text" id="search" placeholder="Search books...">
+        </div>
+        <div class="flex items-center gap-4">
+          <select id="sortCriteria" class="border border-input rounded-md bg-background px-3 py-2">
+            <option value="title">Sort by Title</option>
+            <option value="author">Sort by Author</option>
+            <option value="rating">Sort by Rating</option>
+          </select>
+          <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2" id="addBookBtn">
+            <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>
+            Add Book
+          </button>
+          <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground hover:bg-secondary/90 h-10 px-4 py-2" id="saveBtn">
+            Save Books
+          </button>
+        </div>
+      </div>
+    </header>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="bookGrid">
+      <!-- Cards de livros serão gerados aqui via JavaScript -->
+    </div>
+  </div>
+
+  <!-- Modal de Adição de Livros -->
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden" id="bookModal">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-4">Add New Book</h2>
+      <form id="bookForm">
+        <div class="grid grid-cols-2 gap-4">
+          <div class="grid gap-2">
+            <label for="title" class="font-medium">Title</label>
+            <input type="text" id="title" class="border rounded-md px-3 py-2 w-full">
+          </div>
+          <div class="grid gap-2">
+            <label for="author" class="font-medium">Author</label>
+            <input type="text" id="author" class="border rounded-md px-3 py-2 w-full">
+          </div>
+          <div class="grid gap-2">
+            <label for="genre" class="font-medium">Genre</label>
+            <input type="text" id="genre" class="border rounded-md px-3 py-2 w-full">
+          </div>
+          <div class="grid gap-2">
+            <label for="year" class="font-medium">Year</label>
+            <input type="number" id="year" class="border rounded-md px-3 py-2 w-full">
+          </div>
+        </div>
+        <div class="flex justify-end mt-4">
+          <button type="submit" class="bg-primary text-primary-foreground rounded-md px-4 py-2">Add Book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal de Avaliações -->
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden" id="reviewsModal">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold" id="reviewBookTitle">Reviews</h2>
+        <button id="closeReviewsModal" class="text-gray-500 hover:text-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18"></path><path d="M6 6l12 12"></path></svg>
+        </button>
+      </div>
+      <div id="reviewsList" class="mb-4">
+        <!-- Avaliações serão inseridas aqui via JavaScript -->
+      </div>
+      <form id="reviewForm">
+        <div class="grid gap-2">
+          <label for="reviewUser" class="font-medium">Your Name</label>
+          <input type="text" id="reviewUser" class="border rounded-md px-3 py-2 w-full">
+        </div>
+        <div class="grid gap-2">
+          <label for="reviewRating" class="font-medium">Rating</label>
+          <input type="number" id="reviewRating" class="border rounded-md px-3 py-2 w-full" min="1" max="5">
+        </div>
+        <div class="grid gap-2">
+          <label for="reviewComment" class="font-medium">Comment</label>
+          <textarea id="reviewComment" class="border rounded-md px-3 py-2 w-full"></textarea>
+        </div>
+        <div class="flex justify-end mt-4">
+          <button type="submit" class="bg-primary text-primary-foreground rounded-md px-4 py-2">Add Review</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>

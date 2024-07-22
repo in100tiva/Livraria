@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "genre": "Fiction",
+      "year": 1925,
+      "rating": 4.5,
+      "reviews": [
+        { "user": "John Doe", "rating": 5, "comment": "Beautifully written!" },
+        { "user": "Jane Smith", "rating": 4, "comment": "A classic that still holds up." }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "1984",
+      "author": "George Orwell",
+      "genre": "Science Fiction",
+      "year": 1949,
+      "rating": 4.8,
+      "reviews": [
+        { "user": "Michael Johnson", "rating": 5, "comment": "A chilling and thought-provoking read." },
+        { "user": "Emily Davis", "rating": 4, "comment": "Powerful and relevant even today." }
+      ]
+    }
+  ]
+  
